@@ -1,7 +1,7 @@
 import gradio as gr
 import nltk
 nltk.download('stopwords')
-nltk.download('punkt')
+nltk.download('punkt_tab')
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
@@ -50,14 +50,14 @@ def vectorizer_tfidf(subject, message):
   cleaned_subject = clean_text(subject)
   cleaned_message = clean_text(message)
   combined_text = cleaned_subject + ' ' + cleaned_message
-  with open('tfidf_vectorizer.pkl', 'rb') as f:
+  with open('Lab1_classify_email/model/tfidf_vectorizer.pkl', 'rb') as f:
     tfidf = pickle.load(f)
   X = tfidf.transform([combined_text])
   return X
 
 def classify_email(subject, message):
   feature_X = vectorizer_tfidf(subject, message)
-  with open('best_model.pkl', 'rb') as f:
+  with open('Lab1_classify_email/model/best_model.pkl', 'rb') as f:
     model = pickle.load(f)
   prediction = model.predict(feature_X.toarray())
   result = prediction[0]
@@ -87,4 +87,4 @@ demo = gr.Interface(
 )
 
 # Chạy giao diện
-demo.launch()
+demo.launch(share=True)
