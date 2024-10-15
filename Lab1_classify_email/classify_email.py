@@ -63,7 +63,7 @@ def vectorizer_tfidf(subject, message):
 # Chạy khi người dùng nhập input vào
 def classify_email(subject, message):
   feature_X = vectorizer_tfidf(subject, message)
-  with open('Lab1_classify_email/model/best_model.pkl', 'rb') as f:
+  with open('Lab1_classify_email/model/best_svm_model.pkl', 'rb') as f:
     model = pickle.load(f)
   prediction = model.predict(feature_X.toarray())
   result = prediction[0]
@@ -90,7 +90,7 @@ def classify_email_csv(file):
   X_test = tfidf.transform(test_data['combined_text']).toarray()
   y_test = test_data['Spam/Ham']
   # Load moal
-  with open('Lab1_classify_email/model/best_model.pkl', 'rb') as f:
+  with open('Lab1_classify_email/model/best_svm_model.pkl', 'rb') as f:
     model = pickle.load(f)
   # Run
   prediction = model.predict(X_test)
@@ -123,7 +123,7 @@ with gr.Blocks() as demo:
       fn=classify_email_csv,
       inputs=gr.File(label="Tải lên file CSV"),
       outputs="text",
-      title="Email Spam Classifier",
+      title="Phân loại Email",
       description="Tải lên file CSV để kiểm tra độ chính xác của mô hình phân loại email spam."
     )
 
