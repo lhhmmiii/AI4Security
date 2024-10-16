@@ -1,3 +1,9 @@
+'''
+  Họ và tên: Nguyễn Chí Cường     MSSV: 21120422
+  Họ và tên: Lê Hữu Hưng          MSSV: 21120463
+'''
+
+
 import gradio as gr
 import nltk
 nltk.download('stopwords')
